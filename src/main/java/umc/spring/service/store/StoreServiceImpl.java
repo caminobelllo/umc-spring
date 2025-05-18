@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.spring.apiPayload.code.status.ErrorStatus;
-import umc.spring.apiPayload.exception.handler.RegionHandler;
+import umc.spring.apiPayload.exception.handler.CustomErrorHandler;
 import umc.spring.converter.StoreConverter;
 import umc.spring.domain.Region;
 import umc.spring.domain.Store;
@@ -25,7 +25,7 @@ public class StoreServiceImpl implements StoreService{
 
         // region 조회
         Region region = regionRepository.findById(request.getRegionId())
-                .orElseThrow(() -> new RegionHandler(ErrorStatus.REGION_NOT_FOUND));
+                .orElseThrow(() -> new CustomErrorHandler(ErrorStatus.REGION_NOT_FOUND));
 
         Store newStore = StoreConverter.toStore(request);
 
