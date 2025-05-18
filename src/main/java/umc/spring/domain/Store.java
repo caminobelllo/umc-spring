@@ -3,6 +3,7 @@ package umc.spring.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import umc.spring.domain.common.BaseEntity;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class Store extends BaseEntity {
     @Column(nullable = false, length = 50)
     private String address;
 
+    @ColumnDefault(value = "0")
     private Float score;
 
     @Column(length = 10)
@@ -43,6 +45,16 @@ public class Store extends BaseEntity {
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>();
+
+
+    // 연관관계 메서드
+    public void setRegion(Region region) {
+        this.region = region;
+
+        if (!region.getStoreList().contains(this)) {
+            region.getStoreList().add(this);
+        }
+    }
 
     @Override
     public String toString() {
