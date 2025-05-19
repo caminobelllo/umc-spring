@@ -1,5 +1,6 @@
 package umc.spring.web.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import umc.spring.converter.TempConverter;
 import umc.spring.service.TempService.TempQueryService;
 import umc.spring.web.dto.TempResponse;
 
+@Tag(name="테스트", description = "TEST API")
 @RestController
 @RequestMapping("/temp")
 @RequiredArgsConstructor

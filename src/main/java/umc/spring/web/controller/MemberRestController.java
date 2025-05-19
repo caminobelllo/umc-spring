@@ -1,5 +1,7 @@
-package umc.spring.web.controller.member;
+package umc.spring.web.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +15,7 @@ import umc.spring.service.member.MemberCommandService;
 import umc.spring.web.dto.member.MemberRequestDTO;
 import umc.spring.web.dto.member.MemberResponseDTO;
 
+@Tag(name="회원", description = "회원 관련 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/members")
@@ -20,6 +23,7 @@ public class MemberRestController {
 
     private final MemberCommandService memberCommandService;
 
+    @Operation(summary = "회원가입", description = "Spring Security 사용하지 않은 간략한 로직입니다.")
     @PostMapping("/")
     public ApiResponse<MemberResponseDTO.JoinResultDTO> join(@RequestBody @Valid MemberRequestDTO.JoinDTO request) {
         Member member = memberCommandService.joinMember(request);
