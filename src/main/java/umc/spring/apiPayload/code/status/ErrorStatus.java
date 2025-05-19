@@ -31,7 +31,7 @@ public enum ErrorStatus implements BaseErrorCode {
     MISSION_NOT_FOUND(HttpStatus.NOT_FOUND,"MISSION404", "해당 미션이 존재하지 않습니다."),
 
     // 가게
-    STORE_NOT_FOUND(HttpStatus.NOT_FOUND, "STORE404", "해당 가게가 존재하지 않습니다."),
+    STORE_NOT_FOUND(HttpStatus.NOT_FOUND,"STORE404", "해당 가게가 존재하지 않습니다."),
 
     // 예시
     ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND, "ARTICLE4001", "게시글이 없습니다."),

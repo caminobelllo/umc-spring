@@ -36,7 +36,8 @@ public class ReviewServiceImpl implements ReviewService{
         Mission mission = missionRepository.findById(missionId)
                 .orElseThrow(() -> new CustomErrorHandler(ErrorStatus.MISSION_NOT_FOUND));
 
-        Store store = mission.getStore();
+        Store store = storeRepository.findById(request.getStoreId())
+                .orElseThrow(() -> new CustomErrorHandler(ErrorStatus.STORE_NOT_FOUND));
 
         Review newReview = ReviewConverter.toReview(request);
         newReview.setMember(member);
