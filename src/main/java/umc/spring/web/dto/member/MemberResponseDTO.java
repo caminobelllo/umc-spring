@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 
 public class MemberResponseDTO {
 
-    @Builder
     @Getter
+    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class JoinResultDTO {

@@ -22,10 +22,13 @@ public class StoreRestController {
 
     private final StoreService storeService;
 
+    // 가게 추가하는 API
     @PostMapping("/")
     public ApiResponse<StoreResponseDTO.AddStoreResultDTO> addStore(@RequestBody @Valid StoreRequestDTO.AddStoreDTO request) {
 
         Store store = storeService.addStore(request);
         return ApiResponse.onSuccess(StoreConverter.toAddStoreResultDTO(store));
     }
+
+
 }
