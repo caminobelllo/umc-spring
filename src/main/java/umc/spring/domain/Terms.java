@@ -23,7 +23,7 @@ public class Terms extends BaseEntity {
     private String title;
 
     @Column(nullable = false, length = 50)
-    private String body;
+    private String content;
 
     private Boolean optional;
 

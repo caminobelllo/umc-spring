@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import umc.spring.apiPayload.ApiResponse;
 import umc.spring.converter.ReviewConverter;
@@ -52,8 +53,8 @@ public class ReviewRestController {
             @Parameter(name="storeId", description = "가게의 아이디, path variable 입니다.")
     })
     public ApiResponse<ReviewResponseDTO.ReviewPreviewListDTO> getReviewList(@ExistStore @PathVariable(name = "storeId") Long storeId, @RequestParam(name = "page") Integer page) {
-        storeQueryService.getReviewList(storeId, page);
-        return null;
+        Page<Review> reviewList = storeQueryService.getReviewList(storeId, page);
+        return ApiResponse.onSuccess(ReviewConverter.reviewPreviewListDTO(reviewList));
     }
 
 }

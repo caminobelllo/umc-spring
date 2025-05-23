@@ -42,7 +42,7 @@ public class ReviewResponseDTO {
     public static class ReviewPreviewDTO {
         String ownerNickname;
         Float score;
-        String body;
+        String content;
         LocalDate createdAt;
     }
 }

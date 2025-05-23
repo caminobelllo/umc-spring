@@ -20,7 +20,7 @@ public class ReviewConverter {
 
     public static Review toReview(ReviewRequestDTO.AddReviewDTO request) {
         return Review.builder()
-                .body(request.getContent())
+                .content(request.getContent())
                 .score(request.getScore())
                 .build();
     }
@@ -29,7 +29,7 @@ public class ReviewConverter {
         return ReviewResponseDTO.ReviewPreviewDTO.builder()
                 .ownerNickname(review.getMember().getName())
                 .score(review.getScore())
-                .body(review.getBody())
+                .content(review.getContent())
                 .createdAt(review.getCreatedAt().toLocalDate())
                 .build();
     }
