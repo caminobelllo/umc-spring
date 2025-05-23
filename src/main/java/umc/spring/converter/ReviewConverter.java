@@ -25,6 +25,7 @@ public class ReviewConverter {
                 .build();
     }
 
+    // 리뷰 조회 (가게별 & 회원별 조회에서 공통으로 사용)
     public static ReviewResponseDTO.ReviewPreviewDTO reviewPreviewDTO(Review review) {
         return ReviewResponseDTO.ReviewPreviewDTO.builder()
                 .ownerNickname(review.getMember().getName())
@@ -33,7 +34,6 @@ public class ReviewConverter {
                 .createdAt(review.getCreatedAt().toLocalDate())
                 .build();
     }
-
     public static ReviewResponseDTO.ReviewPreviewListDTO reviewPreviewListDTO(Page<Review> reviewList) {
 
         // 뱔도의 Review DTO를 제작해 List 생성
