@@ -11,7 +11,6 @@ import java.util.List;
 
 public class MissionResponseDTO {
 
-    // 리뷰 작성
     @Getter
     @Builder
     @AllArgsConstructor
