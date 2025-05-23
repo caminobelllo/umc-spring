@@ -24,7 +24,12 @@ public class ReviewConverter {
     }
 
     public static ReviewResponseDTO.ReviewPreviewDTO reviewPreviewDTO(Review review) {
-        return null;
+        return ReviewResponseDTO.ReviewPreviewDTO.builder()
+                .ownerNickname(review.getMember().getName())
+                .score(review.getScore())
+                .body(review.getBody())
+                .createdAt(review.getCreatedAt().toLocalDate())
+                .build();
     }
 
     public static ReviewResponseDTO.ReviewPreviewListDTO reviewPreviewListDTO(List<Review> reviewList) {
