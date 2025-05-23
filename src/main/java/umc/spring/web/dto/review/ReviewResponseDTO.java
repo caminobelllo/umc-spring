@@ -21,7 +21,7 @@ public class ReviewResponseDTO {
     }
 
 
-    // 리뷰 조회
+    // 리뷰 조회 (가게별 & 회원별 조회에서 공통으로 사용)
     @Getter
     @Builder
     @NoArgsConstructor
