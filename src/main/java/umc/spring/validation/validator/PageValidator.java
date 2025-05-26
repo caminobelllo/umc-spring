@@ -15,7 +15,7 @@ public class PageValidator implements ConstraintValidator<ValidPage, Integer> {
 
         if (page == null || page < 1) {
             constraintValidatorContext.disableDefaultConstraintViolation();
-            constraintValidatorContext.buildConstraintViolationWithTemplate(ErrorStatus.INVALID_PAGE.getMessage())
+            constraintValidatorContext.buildConstraintViolationWithTemplate("PAGE400") // ErrorStatus enum 이름
                     .addConstraintViolation();
             return false;
         }
