@@ -18,6 +18,7 @@ import umc.spring.service.member.MemberQueryService;
 import umc.spring.service.review.ReviewService;
 import umc.spring.service.store.StoreQueryService;
 import umc.spring.validation.annotation.ExistStore;
+import umc.spring.validation.annotation.ValidPage;
 import umc.spring.web.dto.review.ReviewRequestDTO;
 import umc.spring.web.dto.review.ReviewResponseDTO;
 
@@ -58,7 +59,7 @@ public class ReviewRestController {
     @Parameters({
             @Parameter(name = "storeId", description = "가게의 아이디, path variable 입니다.")
     })
-    public ApiResponse<ReviewResponseDTO.ReviewPreviewListDTO> getReviewList(@ExistStore @PathVariable(name = "storeId") Long storeId, @RequestParam(name = "page") Integer page) {
+    public ApiResponse<ReviewResponseDTO.ReviewPreviewListDTO> getReviewList(@ExistStore @PathVariable(name = "storeId") Long storeId, @ValidPage @RequestParam(name = "page") Integer page) {
         Page<Review> reviewList = storeQueryService.getReviewList(storeId, page);
         return ApiResponse.onSuccess(ReviewConverter.reviewPreviewListDTO(reviewList));
     }
@@ -74,7 +75,7 @@ public class ReviewRestController {
     @Parameters({
             @Parameter(name = "memberId", description = "회원의 아이디, path variable 입니다.")
     })
-    public ApiResponse<ReviewResponseDTO.ReviewPreviewListDTO> getMemberReviewList(@PathVariable(name = "memberId") Long memberId, @RequestParam(name = "page") Integer page) {
+    public ApiResponse<ReviewResponseDTO.ReviewPreviewListDTO> getMemberReviewList(@PathVariable(name = "memberId") Long memberId, @ValidPage @RequestParam(name = "page") Integer page) {
         Page<Review> reviewList = memberQueryService.getReviewList(memberId, page);
         return ApiResponse.onSuccess(ReviewConverter.reviewPreviewListDTO(reviewList));
     }
