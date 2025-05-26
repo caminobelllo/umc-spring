@@ -2,6 +2,7 @@ package umc.spring.validation.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.stereotype.Component;
 import umc.spring.validation.annotation.ExistMission;
 
@@ -13,10 +14,7 @@ public class PageValidator implements ConstraintValidator<ExistMission, Integer>
     public boolean isValid(Integer page, ConstraintValidatorContext constraintValidatorContext) {
 
         if (page == null || page < 1) {
-            constraintValidatorContext.disableDefaultConstraintViolation();
-            constraintValidatorContext.buildConstraintViolationWithTemplate("페이지 번호는 1 이상이어야 합니다.")
-                    .addConstraintViolation();
-            return false;
+            throw new ConstraintViolationException("INVALID_PAGE", null);
         }
         return true;
     }
