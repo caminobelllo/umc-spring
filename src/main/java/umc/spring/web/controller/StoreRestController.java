@@ -22,6 +22,7 @@ import umc.spring.service.mission.MissionService;
 import umc.spring.service.store.StoreQueryService;
 import umc.spring.service.store.StoreService;
 import umc.spring.validation.annotation.ExistStore;
+import umc.spring.validation.annotation.ValidPage;
 import umc.spring.web.dto.mission.MissionResponseDTO;
 import umc.spring.web.dto.store.StoreRequestDTO;
 import umc.spring.web.dto.store.StoreResponseDTO;
@@ -57,8 +58,11 @@ public class StoreRestController {
     @Parameters({
             @Parameter(name = "storeId", description = "가게의 아이디, path variable 입니다.")
     })
-    public ApiResponse<MissionResponseDTO.MissionPreviewListDTO> getStoreMissions(@ExistStore @PathVariable(name = "storeId") Long storeId, @RequestParam(name = "page") Integer page) {
-        Page<Mission> missionList = storeQueryService.getMissionList(storeId, page);
+    public ApiResponse<MissionResponseDTO.MissionPreviewListDTO> getStoreMissions(@ExistStore @PathVariable(name = "storeId") Long storeId, @Valid @ValidPage @RequestParam(name = "page") Integer page) {
+
+        int zeroBasedPage = page - 1;
+
+        Page<Mission> missionList = storeQueryService.getMissionList(storeId, zeroBasedPage);
         return ApiResponse.onSuccess(MissionConverter.missionPreviewListDTO(missionList));
     }
 

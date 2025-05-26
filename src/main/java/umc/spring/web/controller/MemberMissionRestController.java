@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import umc.spring.apiPayload.ApiResponse;
 import umc.spring.converter.MemberMissionConverter;
 import umc.spring.domain.mapping.MemberMission;
 import umc.spring.service.mission.MemberMissionService;
+import umc.spring.validation.annotation.ValidPage;
 import umc.spring.web.dto.memberMission.MemberMissionResponseDTO;
 
 
@@ -36,8 +38,11 @@ public class MemberMissionRestController {
     @Parameters({
             @Parameter(name = "memberId", description = "회원의 아이디, path variable 입니다.")
     })
-    public ApiResponse<MemberMissionResponseDTO.MemberMissionListDTO> getMemberMissionList(@PathVariable(name = "memberId") Long memberId, @RequestParam(name = "page") Integer page) {
-        Page<MemberMission> memberMissionList = memberMissionService.getInProgressMissionList(memberId, page);
+    public ApiResponse<MemberMissionResponseDTO.MemberMissionListDTO> getMemberMissionList(@PathVariable(name = "memberId") Long memberId, @Valid @ValidPage @RequestParam(name = "page") Integer page) {
+
+        int zeroBasedPage = page - 1;
+
+        Page<MemberMission> memberMissionList = memberMissionService.getInProgressMissionList(memberId, zeroBasedPage);
         return ApiResponse.onSuccess(MemberMissionConverter.memberMissionListDTO(memberMissionList));
     }
 }

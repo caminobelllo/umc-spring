@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import umc.spring.domain.enums.MissionStatus;
+import umc.spring.validation.annotation.ValidPage;
 import umc.spring.web.dto.mission.MissionResponseDTO;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class MemberMissionResponseDTO {
     @Builder
     @AllArgsConstructor
     public static class MissionInProgressDTO {
+
         Integer reward;
         String missionSpec;
         MissionStatus missionStatus;
