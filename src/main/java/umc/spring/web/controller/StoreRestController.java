@@ -58,8 +58,11 @@ public class StoreRestController {
     @Parameters({
             @Parameter(name = "storeId", description = "가게의 아이디, path variable 입니다.")
     })
-    public ApiResponse<MissionResponseDTO.MissionPreviewListDTO> getStoreMissions(@ExistStore @PathVariable(name = "storeId") Long storeId, @ValidPage @RequestParam(name = "page") Integer page) {
-        Page<Mission> missionList = storeQueryService.getMissionList(storeId, page);
+    public ApiResponse<MissionResponseDTO.MissionPreviewListDTO> getStoreMissions(@ExistStore @PathVariable(name = "storeId") Long storeId, @Valid @ValidPage @RequestParam(name = "page") Integer page) {
+
+        int zeroBasedPage = page - 1;
+
+        Page<Mission> missionList = storeQueryService.getMissionList(storeId, zeroBasedPage);
         return ApiResponse.onSuccess(MissionConverter.missionPreviewListDTO(missionList));
     }
 

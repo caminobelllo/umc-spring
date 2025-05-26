@@ -38,8 +38,11 @@ public class MemberMissionRestController {
     @Parameters({
             @Parameter(name = "memberId", description = "회원의 아이디, path variable 입니다.")
     })
-    public ApiResponse<MemberMissionResponseDTO.MemberMissionListDTO> getMemberMissionList(@PathVariable(name = "memberId") Long memberId, @ValidPage @RequestParam(name = "page") Integer page) {
-        Page<MemberMission> memberMissionList = memberMissionService.getInProgressMissionList(memberId, page);
+    public ApiResponse<MemberMissionResponseDTO.MemberMissionListDTO> getMemberMissionList(@PathVariable(name = "memberId") Long memberId, @Valid @ValidPage @RequestParam(name = "page") Integer page) {
+
+        int zeroBasedPage = page - 1;
+
+        Page<MemberMission> memberMissionList = memberMissionService.getInProgressMissionList(memberId, zeroBasedPage);
         return ApiResponse.onSuccess(MemberMissionConverter.memberMissionListDTO(memberMissionList));
     }
 }

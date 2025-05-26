@@ -59,8 +59,11 @@ public class ReviewRestController {
     @Parameters({
             @Parameter(name = "storeId", description = "가게의 아이디, path variable 입니다.")
     })
-    public ApiResponse<ReviewResponseDTO.ReviewPreviewListDTO> getReviewList(@ExistStore @PathVariable(name = "storeId") Long storeId, @ValidPage @RequestParam(name = "page") Integer page) {
-        Page<Review> reviewList = storeQueryService.getReviewList(storeId, page);
+    public ApiResponse<ReviewResponseDTO.ReviewPreviewListDTO> getReviewList(@ExistStore @PathVariable(name = "storeId") Long storeId, @Valid @ValidPage @RequestParam(name = "page") Integer page) {
+
+        int zeroBasedPage = page - 1;
+
+        Page<Review> reviewList = storeQueryService.getReviewList(storeId, zeroBasedPage);
         return ApiResponse.onSuccess(ReviewConverter.reviewPreviewListDTO(reviewList));
     }
 
@@ -75,8 +78,11 @@ public class ReviewRestController {
     @Parameters({
             @Parameter(name = "memberId", description = "회원의 아이디, path variable 입니다.")
     })
-    public ApiResponse<ReviewResponseDTO.ReviewPreviewListDTO> getMemberReviewList(@PathVariable(name = "memberId") Long memberId, @ValidPage @RequestParam(name = "page") Integer page) {
-        Page<Review> reviewList = memberQueryService.getReviewList(memberId, page);
+    public ApiResponse<ReviewResponseDTO.ReviewPreviewListDTO> getMemberReviewList(@PathVariable(name = "memberId") Long memberId, @Valid @ValidPage @RequestParam(name = "page") Integer page) {
+
+        int zeroBasedPage = page - 1;
+
+        Page<Review> reviewList = memberQueryService.getReviewList(memberId, zeroBasedPage);
         return ApiResponse.onSuccess(ReviewConverter.reviewPreviewListDTO(reviewList));
     }
 
