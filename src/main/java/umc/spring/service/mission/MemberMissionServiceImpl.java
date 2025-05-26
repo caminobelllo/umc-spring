@@ -40,8 +40,9 @@ public class MemberMissionServiceImpl implements MemberMissionService {
 
     @Override
     public Page<MemberMission> getInProgressMissionList(Long memberId, Integer page) {
-        Member member = memberRepository.findById(memberId).get();
-        // 멤버 없는 경우 에러 처리하기
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new CustomErrorHandler(ErrorStatus.MEMBER_NOT_FOUND));
+
         return memberMissionRepository.findAllByMemberAndStatus(
                 member,
                 MissionStatus.CHALLENGING,
