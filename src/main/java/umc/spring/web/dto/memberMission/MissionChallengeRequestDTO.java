@@ -1,4 +1,4 @@
-package umc.spring.web.dto.missionChallenge;
+package umc.spring.web.dto.memberMission;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
