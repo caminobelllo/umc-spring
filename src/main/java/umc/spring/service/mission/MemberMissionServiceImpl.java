@@ -16,7 +16,7 @@ import umc.spring.web.dto.memberMission.MissionChallengeRequestDTO;
 
 @Service
 @RequiredArgsConstructor
-public class MissionChallengeServiceImpl implements MissionChallengeService{
+public class MemberMissionServiceImpl implements MemberMissionService {
 
     private final MemberMissionRepository memberMissionRepository;
     private final MemberRepository memberRepository;
