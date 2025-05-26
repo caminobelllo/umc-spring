@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import umc.spring.apiPayload.ApiResponse;
 import umc.spring.converter.MissionConverter;
 import umc.spring.domain.Mission;
+import umc.spring.domain.enums.MissionStatus;
 import umc.spring.service.mission.MemberMissionService;
 import umc.spring.service.mission.MissionService;
 import umc.spring.web.dto.mission.MissionRequestDTO;
@@ -33,12 +34,13 @@ public class MissionController {
         return ApiResponse.onSuccess(MissionConverter.toAddMissionResultDTO(mission));
     }
 
-    // 미션 도전하는 API
-    @Operation(summary = "미션 도전하기", description = "가게의 미션을 도전 중인 미션에 추가합니다.")
-    @PatchMapping("/challenge")
+    // 미션 상태 변경 API
+    @Operation(summary = "미션 상태를 변경하는 API", description = "가게의 미션 상태를 CHALLENGING 또는 COMPLETE로 변경합니다.")
+    @PatchMapping("/{status}")
     public ApiResponse<String> challengeMission(
+            @PathVariable("status") MissionStatus status,
             @RequestBody @Valid MissionChallengeRequestDTO.ChallengeMissionDTO request) {
-        missionChallengeService.challengeMission(request);
-        return ApiResponse.onSuccess("미션 도전!!");
+        missionChallengeService.updateMissionStatus(request, status);
+        return ApiResponse.onSuccess("미션 상태를 " + status.name() + "으로 변경");
     }
 }
