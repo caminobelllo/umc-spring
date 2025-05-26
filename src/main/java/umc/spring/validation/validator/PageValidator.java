@@ -2,19 +2,22 @@ package umc.spring.validation.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import jakarta.validation.ConstraintViolationException;
 import org.springframework.stereotype.Component;
-import umc.spring.validation.annotation.ExistMission;
+import umc.spring.apiPayload.code.status.ErrorStatus;
+import umc.spring.validation.annotation.ValidPage;
 
 @Component
-public class PageValidator implements ConstraintValidator<ExistMission, Integer> {
+public class PageValidator implements ConstraintValidator<ValidPage, Integer> {
 
 
     @Override
     public boolean isValid(Integer page, ConstraintValidatorContext constraintValidatorContext) {
 
         if (page == null || page < 1) {
-            throw new ConstraintViolationException("INVALID_PAGE", null);
+            constraintValidatorContext.disableDefaultConstraintViolation();
+            constraintValidatorContext.buildConstraintViolationWithTemplate(ErrorStatus.INVALID_PAGE.getMessage())
+                    .addConstraintViolation();
+            return false;
         }
         return true;
     }

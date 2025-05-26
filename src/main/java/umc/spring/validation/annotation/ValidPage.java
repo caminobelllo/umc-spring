@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidPage {
 
-    String message() default "올바르지 않은 페이지 번호입니다. 페이지는 1 이상이어야 합니다.";
+    String message() default "유효하지 않은 페이지 번호입니다.";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
