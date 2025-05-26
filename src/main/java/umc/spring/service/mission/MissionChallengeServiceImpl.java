@@ -12,7 +12,7 @@ import umc.spring.domain.mapping.MemberMission;
 import umc.spring.repository.member.MemberRepository;
 import umc.spring.repository.mission.MemberMissionRepository;
 import umc.spring.repository.mission.MissionRepository;
-import umc.spring.web.dto.missionChallenge.MissionChallengeRequestDTO;
+import umc.spring.web.dto.memberMission.MissionChallengeRequestDTO;
 
 @Service
 @RequiredArgsConstructor
