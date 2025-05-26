@@ -17,6 +17,8 @@ import umc.spring.repository.mission.MemberMissionRepository;
 import umc.spring.repository.mission.MissionRepository;
 import umc.spring.web.dto.memberMission.MissionChallengeRequestDTO;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class MemberMissionServiceImpl implements MemberMissionService {
@@ -27,15 +29,36 @@ public class MemberMissionServiceImpl implements MemberMissionService {
 
     @Override
     @Transactional
-    public void challengeMission(MissionChallengeRequestDTO.ChallengeMissionDTO request) {
+    public void updateMissionStatus(MissionChallengeRequestDTO.ChallengeMissionDTO request, MissionStatus status) {
         Member member = memberRepository.findById(request.getMemberId())
                 .orElseThrow(() -> new CustomErrorHandler(ErrorStatus.MEMBER_NOT_FOUND));
 
         Mission mission = missionRepository.findById(request.getMissionId())
                 .orElseThrow(() -> new CustomErrorHandler(ErrorStatus.MISSION_NOT_FOUND));
 
-        MemberMission memberMission = MemberMissionConverter.toMemberMission(request, member, mission);
-        memberMissionRepository.save(memberMission);
+//        MemberMission memberMission = MemberMissionConverter.toMemberMission(request, member, mission);
+//        memberMissionRepository.save(memberMission);
+
+        // 변경된 로직
+        Optional<MemberMission> existMission = memberMissionRepository
+                .findByMemberIdAndMissionId(request.getMemberId(), request.getMissionId());
+
+        if (existMission.isPresent()) {
+            // 이미 존재하는 경우 -> 상태만 업데이트
+            MemberMission memberMission = existMission
+                    .orElseThrow(() -> new CustomErrorHandler(ErrorStatus.MISSION_NOT_FOUND));
+
+            if (status == MissionStatus.CHALLENGING && memberMission.getStatus() == MissionStatus.CHALLENGING) {
+                throw new CustomErrorHandler(ErrorStatus.MISSION_ALREADY_EXIST);
+            }
+            memberMission.setStatus(status);
+
+        } else {
+            // 존재하지 않는 경우 -> 새로 생성
+            MemberMission memberMission = MemberMissionConverter.toMemberMission(request, member, mission);
+            memberMission.setStatus(status);
+            memberMissionRepository.save(memberMission);
+        }
     }
 
     @Override
