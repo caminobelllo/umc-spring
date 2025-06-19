@@ -26,13 +26,21 @@ public class MemberConverter {
                 .build();
     }
 
+    // 회원 정보 조회
+    public static MemberResponseDTO.MemberInfoDTO toMemberInfoDTO(Member member){
+        return MemberResponseDTO.MemberInfoDTO.builder()
+                .name(member.getName())
+                .email(member.getEmail())
+                .gender(member.getGender().name())
+                .build();
+    }
+
     public static Member toMember(MemberRequestDTO.JoinDTO request) {
 
         Gender gender = switch (request.getGender()) {
             case 1 -> Gender.MALE;
             case 2 -> Gender.FEMALE;
-            case 3 -> Gender.NONE;
-            default -> null;
+            default -> Gender.NONE;
         };
 
         return Member.builder()
