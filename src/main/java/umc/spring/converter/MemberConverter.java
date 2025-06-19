@@ -10,10 +10,19 @@ import java.util.ArrayList;
 
 public class MemberConverter {
 
+    // 회원가입
     public static MemberResponseDTO.JoinResultDTO toJoinResultDTO(Member member) {
         return MemberResponseDTO.JoinResultDTO.builder()
                 .memberId(member.getId())
                 .createdAt(LocalDateTime.now())
+                .build();
+    }
+
+    // 로그인
+    public static MemberResponseDTO.LoginResultDTO toLoginResultDTO(Long memberId, String accessToken) {
+        return MemberResponseDTO.LoginResultDTO.builder()
+                .memberId(memberId)
+                .accessToken(accessToken)
                 .build();
     }
 
